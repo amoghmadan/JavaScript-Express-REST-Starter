@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import http from 'http';
 import express from 'express';
+import mongoose from 'mongoose';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -13,6 +14,11 @@ export default class App {
         this.config = JSON.parse(
             fs.readFileSync(path.join(App.BASE_DIR, 'resources', `${process.argv[2]}.json`), 'utf-8')
         );
+        this.connectionOptions = {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: true
+        };
         this.app = express();
         this.app.use(helmet());
         this.app.use(express.json());
@@ -29,9 +35,14 @@ export default class App {
     }
 
     async run() {
-        this.server.listen(this.config.port, '::', () => {
-            console.log(`Server running at http://0.0.0.0:${this.config.port}`);
-        });
+        try {
+            await mongoose.connect(this.config.mongoUri, this.connectionOptions);
+            this.server.listen(this.config.port, '::', () => {
+                console.log(`Server running at http://0.0.0.0:${this.config.port}`);
+            });
+        } catch (err) {
+            throw err;
+        }
     }
 
     static getInstance() {
