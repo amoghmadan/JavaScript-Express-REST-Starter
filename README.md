@@ -13,9 +13,15 @@ Kick-starter to your REST application.
     - src
         - index.js
         - App.js
+        - controllers
+            - person.controller.js
+            - root.controller.js
+        - models
+            - person.model.js
         - routes
             - index.js
-            - root.js
+            - person.route.js
+            - root.route.js
     - resources
         - development.json
         - prodcution.json
