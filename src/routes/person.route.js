@@ -1,15 +1,14 @@
 import { Router } from 'express';
-import {
-    fetchAll,
-    fetchOne,
-    createOne,
-    fetchOneAndUpdate,
-    fetchOneAndDelete
-} from '../controllers/person.controller';
+import { personController } from '../controllers/person.controller';
 
 const router = Router();
 
-router.route('/').get(fetchAll).post(createOne);
-router.route('/:id').get(fetchOne).put(fetchOneAndUpdate).delete(fetchOneAndDelete);
+router.route('/')
+    .get(personController.fetchAll)
+    .post(personController.createOne);
+router.route('/:id')
+    .get(personController.fetchOne)
+    .put(personController.fetchOneAndUpdate)
+    .delete(personController.fetchOneAndDelete);
 
 export default router;

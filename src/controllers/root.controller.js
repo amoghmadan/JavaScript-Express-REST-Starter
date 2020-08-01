@@ -1,5 +1,7 @@
-const helloWorld = async (req, res) => {
-    res.status(200).json({ 'hello': 'World!' });
-};
+class RootController {
+    async helloWorld(req, res) {
+        res.status(200).json({ 'hello': 'World!' });
+    }
+}
 
-export { helloWorld };
+export const rootController = new RootController();
