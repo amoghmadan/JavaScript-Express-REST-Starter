@@ -4,8 +4,8 @@
   "description": "JavaScript Express REST Starter",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js production",
-    "serve": "nodemon --exec babel-node src/index.js development",
+    "start": "node dist/index.js",
+    "serve": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

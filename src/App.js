@@ -10,10 +10,9 @@ import routes from './routes';
 
 export default class App {
     constructor() {
-        App.BASE_DIR = path.dirname(__dirname);
-        this.config = JSON.parse(
-            fs.readFileSync(path.join(App.BASE_DIR, 'resources', `${process.argv[2]}.json`), 'utf-8')
-        );
+        this.BASE_DIR = path.dirname(__dirname);
+        this.ENV = process.env.ENV || 'development';
+        this.config = JSON.parse(fs.readFileSync(path.join(this.BASE_DIR, 'resources', `${this.ENV}.json`), 'utf-8'));
         this.connectionOptions = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -38,6 +37,7 @@ export default class App {
         try {
             await mongoose.connect(this.config.mongoUri, this.connectionOptions);
             this.server.listen(this.config.port, '::', () => {
+                console.log(`Environment: ${this.ENV}`);
                 console.log(`Server running at http://0.0.0.0:${this.config.port}`);
             });
         } catch (err) {
