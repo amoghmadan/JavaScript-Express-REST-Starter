@@ -10,21 +10,26 @@ Kick-starter to your REST application.
     Production: npm start
 
 ## Project Structure
-    - src
-        - index.js
-        - App.js
-        - controllers
-            - person.controller.js
-            - root.controller.js
-        - models
-            - person.model.js
-        - routes
-            - index.js
-            - person.route.js
-            - root.route.js
-    - resources
-        - development.json
-        - prodcution.json
+    .
+    ├── LICENSE
+    ├── package.json
+    ├── package-lock.json
+    ├── README.md
+    ├── resources
+    │   ├── development.json
+    │   └── production.json
+    └── src
+        ├── App.js
+        ├── controllers
+        │   ├── person.controller.js
+        │   └── root.controller.js
+        ├── index.js
+        ├── models
+        │   └── person.model.js
+        └── routes
+            ├── index.js
+            ├── person.route.js
+            └── root.route.js
 
 ## Deploy
     npm i -g pm2
