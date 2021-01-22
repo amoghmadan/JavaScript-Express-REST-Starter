@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import { personController } from '../controllers/person.controller';
+import { Router } from "express";
+import { personController } from "../controllers";
 
 const router = Router();
 
-router.route('/')
+router.route("/")
     .get(personController.fetchAll)
     .post(personController.createOne);
-router.route('/:id')
+router.route("/:id")
     .get(personController.fetchOne)
     .put(personController.fetchOneAndUpdate)
     .delete(personController.fetchOneAndDelete);

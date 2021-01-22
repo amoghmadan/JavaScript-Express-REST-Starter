@@ -1,7 +1,7 @@
-import App from './App';
+import App from "./App";
 
 try {
-    let app = App.getInstance();
+    const app = App.getInstance();
     app.run();
 } catch (err) {
     console.error(err);

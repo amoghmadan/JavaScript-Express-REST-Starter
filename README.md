@@ -16,16 +16,18 @@ Kick-starter to your REST application.
     ├── package-lock.json
     ├── README.md
     ├── resources
-    │   ├── development.json
-    │   └── production.json
+    │   ├── development.json
+    │   └── production.json
     └── src
         ├── App.js
         ├── controllers
-        │   ├── person.controller.js
-        │   └── root.controller.js
+        │   ├── index.js
+        │   ├── person.controller.js
+        │   └── root.controller.js
         ├── index.js
         ├── models
-        │   └── person.model.js
+        │   ├── index.js
+        │   └── person.model.js
         └── routes
             ├── index.js
             ├── person.route.js

@@ -1,8 +1,8 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema } from "mongoose";
 
 const PersonSchema = new Schema({
     name: { type: String, required: true },
     age: { type: Number, required: true }
 });
 
-export default model('Person', PersonSchema);
+export const PersonModel = model("Person", PersonSchema);

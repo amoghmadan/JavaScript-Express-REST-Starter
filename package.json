@@ -4,32 +4,41 @@
   "description": "JavaScript Express REST Starter",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "lint": "eslint",
     "serve": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir dist",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amoghmadan/JavaScript-Express-REST-Starter.git"
   },
   "keywords": [
     "JavaScript",
-    "Babel",
     "Express",
-    "REST"
+    "REST",
+    "Starter"
   ],
   "author": "Amogh Madan",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amoghmadan/JavaScript-Express-REST-Starter/issues"
+  },
+  "homepage": "https://github.com/amoghmadan/JavaScript-Express-REST-Starter#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.0",
-    "eslint": "^6.8.0",
-    "nodemon": "^2.0.2"
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "eslint": "^7.18.0",
+    "nodemon": "^2.0.7"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "helmet": "^3.22.0",
-    "mongoose": "^5.9.21",
+    "helmet": "^4.4.1",
+    "mongoose": "^5.11.13",
     "morgan": "^1.10.0"
   }
 }
