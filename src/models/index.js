@@ -1,5 +1,3 @@
-import { PersonModel } from "./person.model";
+import User from './user.model';
 
-export {
-    PersonModel,
-};
+export {User};

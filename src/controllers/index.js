@@ -1,7 +1,3 @@
-import { rootController } from "./root.controller";
-import { personController } from "./person.controller";
+import accountsController from './accounts.controller';
 
-export {
-    rootController,
-    personController,
-};
+export {accountsController};
