@@ -2,7 +2,7 @@ FROM node:20-bookworm-slim
 
 LABEL maintaner="Amogh Madan <amoghmadaan@gmail.com>"
 
-WORKDIR /reception-register/
+WORKDIR /app/
 
 COPY . .
 
