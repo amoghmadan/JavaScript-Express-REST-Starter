@@ -32,10 +32,11 @@ export default async function createSuperUser() {
       process.exit(2);
     }
     const newUser = new User({...validatedData, isAdmin: true});
-    newUser.save();
+    await newUser.save();
   } catch (err) {
     console.error(err);
     process.exit(2);
   }
   console.info('Superuser created successfully.');
+  process.exit(0);
 }

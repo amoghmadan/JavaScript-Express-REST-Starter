@@ -26,10 +26,11 @@ export default async function changepassword(email) {
       process.exit(2);
     }
     user.password = validatedData.password;
-    user.save();
+    await user.save();
   } catch (err) {
     console.error(err);
     process.exit(2);
   }
   console.info(`Password changed successfully for user '${email}'.`);
+  process.exit(0);
 }
