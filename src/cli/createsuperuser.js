@@ -31,8 +31,7 @@ export default async function createSuperUser() {
       console.error('Error: That email is already taken.');
       process.exit(2);
     }
-    const newUser = new User({...validatedData, isAdmin: true});
-    await newUser.save();
+    await User.create({...validatedData, isAdmin: true});
   } catch (err) {
     console.error(err);
     process.exit(2);
