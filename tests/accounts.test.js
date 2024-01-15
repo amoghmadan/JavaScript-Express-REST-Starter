@@ -7,8 +7,10 @@ import {User} from '../src/models';
 import {MONGODB_URI} from '../src/settings';
 import {generateKey} from '../src/utilities/token';
 
-const EMAIL = 'test.user@email.com';
-const PASSWORD = 'foobarbaz';
+const ROOT_URL = '/api/accounts';
+const KEYWORD = 'Token';
+const EMAIL = 'account.testuser@email.com';
+const CREDENTIALS = {email: EMAIL, password: 'foobarbaz'};
 
 const request = supertest(getRequestListener());
 
@@ -16,12 +18,9 @@ describe('Account API Tests', () => {
   beforeAll(async () => {
     await mongoose.connect(MONGODB_URI);
     await User.create({
-      email: EMAIL,
-      firstName: 'Test',
-      lastName: 'User',
-      password: PASSWORD,
-      isActive: true,
-      dateJoined: new Date(),
+      ...CREDENTIALS,
+      firstName: 'Account',
+      lastName: 'Test User',
     });
   });
 
@@ -30,25 +29,25 @@ describe('Account API Tests', () => {
     await mongoose.connection.close();
   });
 
-  describe('POST /api/accounts/login', () => {
+  describe(`POST ${ROOT_URL}/login`, () => {
     it('Performs Account Login', async () => {
-      const payload = {email: EMAIL, password: PASSWORD};
-
-      const response = await request.post('/api/accounts/login').send(payload);
+      const response = await request
+          .post(`${ROOT_URL}/login`)
+          .send(CREDENTIALS);
       expect(response.status).toBe(201);
       expect(response.body.token).toBeDefined();
     });
   });
 
-  describe('GET /api/accounts/detail', () => {
+  describe(`GET ${ROOT_URL}/detail`, () => {
     it('Retrieves Account Details', async () => {
       const user = await User.findOne({email: EMAIL});
       user.token = {key: generateKey()};
       await user.save();
 
       const response = await request
-          .get('/api/accounts/detail')
-          .set('Authorization', `Token ${user.token.key}`);
+          .get(`${ROOT_URL}/detail`)
+          .set('Authorization', `${KEYWORD} ${user.token.key}`);
 
       expect(response.status).toBe(200);
       expect(response.body.email).toBe(user.email);
@@ -57,25 +56,25 @@ describe('Account API Tests', () => {
     });
 
     it('Returns 401 if not authorized', async () => {
-      const response = await request.get('/api/accounts/detail');
+      const response = await request.get(`${ROOT_URL}/detail`);
       expect(response.status).toBe(401);
     });
   });
 
-  describe('DELETE /api/accounts/logout', () => {
+  describe(`DELETE ${ROOT_URL}/logout`, () => {
     it('Performs Account Logout', async () => {
       const user = await User.findOne({email: EMAIL});
       user.token = {key: generateKey()};
       await user.save();
 
       const response = await request
-          .delete('/api/accounts/logout')
-          .set('Authorization', `Token ${user.token.key}`);
+          .delete(`${ROOT_URL}/logout`)
+          .set('Authorization', `${KEYWORD} ${user.token.key}`);
       expect(response.status).toBe(204);
     });
 
     it('Returns 401 if not authorized', async () => {
-      const response = await request.delete('/api/accounts/logout');
+      const response = await request.delete(`${ROOT_URL}/logout`);
       expect(response.status).toBe(401);
     });
   });
