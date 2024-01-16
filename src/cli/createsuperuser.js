@@ -16,7 +16,7 @@ export default async function createSuperUser() {
   const passwordAgain = await read({prompt: 'Password (again): '});
 
   try {
-    const validatedData = await accountsValidator.createSuperUser.validateAsync(
+    const validatedData = await accountsValidator.createUser.validateAsync(
         {
           email,
           firstName,

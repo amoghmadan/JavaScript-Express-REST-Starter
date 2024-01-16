@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export default {
-  createSuperUser: Joi.object({
+  createUser: Joi.object({
     email: Joi.string().email().required().label('Email'),
     firstName: Joi.string().min(1).required().label('First name'),
     lastName: Joi.string().min(1).required().label('Last name'),
