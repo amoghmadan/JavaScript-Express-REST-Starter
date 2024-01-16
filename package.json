@@ -10,7 +10,7 @@
     "lint:check": "eslint src tests",
     "lint:format": "eslint --fix src tests",
     "start": "node dist/app.js",
-    "test": "jest"
+    "test": "jest -i"
   },
   "repository": {
     "type": "git",
