@@ -42,8 +42,9 @@ yargs
     .command(
         'createsuperuser',
         'Create super user',
+        (_) => {}, // Nothing to setup
         async (_) => {
-          await createSuperUser();
+          await createSuperUser(); // No args to process
         },
     )
     .help().argv;
