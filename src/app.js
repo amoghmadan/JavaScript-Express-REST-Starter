@@ -4,6 +4,8 @@ import {bootstrap, changePassword, createSuperUser} from './cli';
 
 yargs
     .strict()
+    .scriptName('app')
+    .usage('$0 <cmd> [args]')
     .command(
         'bootstrap [port] [host]',
         'Bootstrap application',
@@ -40,8 +42,8 @@ yargs
     .command(
         'createsuperuser',
         'Create super user',
-        (setup) => {}, // Nothing to setup
-        async (args) => { // No args
+        async (_) => {
           await createSuperUser();
         },
-    ).argv;
+    )
+    .help().argv;
