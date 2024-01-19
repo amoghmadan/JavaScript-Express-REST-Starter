@@ -1,4 +1,4 @@
 {
-  "watch": [".babelrc", "src/**/*.js"],
-  "exec": "babel-node --env-file=.env"
+  "watch": [".babelrc", ".env", "src/**/*.js"],
+  "exec": "babel-node"
 }
