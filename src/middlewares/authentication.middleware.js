@@ -1,6 +1,6 @@
 import {STATUS_CODES} from 'http';
 
-import {User} from '../models';
+import {User} from '@/models';
 
 /**
  * Authentication middleware.

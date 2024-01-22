@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 
-import {bootstrap, changePassword, createSuperUser} from './cli';
+import {bootstrap, changePassword, createSuperUser} from '@/cli';
 
 yargs
     .strict()

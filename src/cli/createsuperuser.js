@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import {read} from 'read';
 
-import {User} from '../models';
-import {accountsValidator} from '../validators';
-import {MONGODB_URI} from '../settings';
+import {User} from '@/models';
+import {accountsValidator} from '@/validators';
+import {MONGODB_URI} from '@/settings';
 
 /**
  * Create super user

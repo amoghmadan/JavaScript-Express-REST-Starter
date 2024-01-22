@@ -1,7 +1,7 @@
 import {Router} from 'express';
 
-import {accountsController} from '../../controllers';
-import {authenticate} from '../../middlewares';
+import {accountsController} from '@/controllers';
+import {authenticate} from '@/middlewares';
 
 // eslint-disable-next-line new-cap
 const accountsRouter = Router();

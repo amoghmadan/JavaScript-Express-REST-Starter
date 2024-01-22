@@ -1,6 +1,6 @@
 import {ValidationError} from 'joi';
 
-import {accountsService} from '../services';
+import {accountsService} from '@/services';
 
 export default {
   login: async (request, response) => {

@@ -1,3 +1,3 @@
-import accountsRepository from './accounts.repository';
+import accountsRepository from '@/repositories/accounts.repository';
 
 export {accountsRepository};

@@ -1,3 +1,3 @@
-import accountsController from './accounts.controller';
+import accountsController from '@/controllers/accounts.controller';
 
 export {accountsController};
