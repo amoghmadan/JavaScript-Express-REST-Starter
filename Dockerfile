@@ -6,7 +6,7 @@ WORKDIR /app/
 
 COPY . .
 
-RUN npm i --location=project
+RUN npm ci --location=project
 
 RUN npm run build
 
