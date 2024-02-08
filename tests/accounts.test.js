@@ -1,11 +1,10 @@
-import 'dotenv/config';
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 
 import {getRequestListener} from '@/cli/bootstrap';
 import {User} from '@/models';
 import {MONGODB_URI} from '@/settings';
-import {generateKey} from '@/utilities/token';
+import {generateKey} from '@/utils/token';
 
 const ROOT_URL = '/api/accounts';
 const KEYWORD = 'Token';

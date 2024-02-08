@@ -1,5 +1,5 @@
 import {User} from '@/models';
-import {generateKey} from '@/utilities/token';
+import {generateKey} from '@/utils/token';
 
 export default {
   login: async (payload) => {
