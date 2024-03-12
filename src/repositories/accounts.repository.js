@@ -12,6 +12,8 @@ export default {
     let token = await db.Token.findOne({where: {userId: user.id}});
     if (!token) {
       token = await db.Token.create({userId: user.id, key: generateKey()});
+      user.lastLogin = token.created;
+      await user.save();
     }
     return token.toJSON();
   },
