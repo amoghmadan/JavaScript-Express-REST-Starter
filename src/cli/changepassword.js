@@ -10,7 +10,7 @@ import {MONGODB_URI} from '@/settings';
  * @param {string} email
  */
 export default async function changepassword(email) {
-  const password = await read({prompt: 'Email: '});
+  const password = await read({prompt: 'Password: '});
   const passwordAgain = await read({prompt: 'Password (again): '});
 
   try {
