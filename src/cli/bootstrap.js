@@ -38,6 +38,6 @@ export default async function bootstrap(port, host) {
 
   await mongoose.connect(MONGODB_URI);
   server.listen(port, host, () => {
-    console.log(server.address());
+    console.info(server.address());
   });
 }
