@@ -2,8 +2,6 @@
 
 Kick-starter to your REST application.
 
-`Node`, `Express`, `MongoDB`, `CLI` and more.
-
 ## Introduction
 
 The project is a skeleton for an experss application and the way I like to configure it.
@@ -12,22 +10,11 @@ This structure is in no way a perfect fit all the projects, but might be a great
 
 It contains login, logout and details for accounts, using custom token generation. The CLI provides user creation using commands and password change functionality as well.
 
-## How to setup?
+## What's in store?
 
-- Clone this project. PS: Delete the package-lock.json. You might want to rename the name & author in package.json and maintainer in Dockerfile.
-- Run: -
-  ```bash
-  npm i --location=project
-  ```
-- Add an environemnt file `.env` to the root of the project and set your MONGODB_URI. Typically: -
-  ```
-  MONGODB_URI = mongodb://127.0.0.1:27017/<appname>
-  ```
-- Create an admin user: -
-  ```bash
-  npm run dev createsuperuser
-  ```
-- Run the development server: -
-  ```bash
-  npm run dev bootstrap
-  ```
+- We have the same setup for MongoDB (using _Mongoose_ ODM) and SQL DB(s) (using _Sequelize_ ORM).
+- MongoDB: [Mongoose Setup]
+- SQL: [Sequelize Setup]
+
+[Mongoose Setup]: https://github.com/amoghmadan/JavaScript-Express-REST-Starter/tree/mongoose
+[Sequelize Setup]: https://github.com/amoghmadan/JavaScript-Express-REST-Starter/tree/sequelize
