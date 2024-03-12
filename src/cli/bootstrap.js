@@ -37,6 +37,6 @@ export default async function bootstrap(port, host) {
 
   await db.sequelize.sync({force: false, logging: false});
   server.listen(port, host, () => {
-    console.log(server.address());
+    console.info(server.address());
   });
 }
