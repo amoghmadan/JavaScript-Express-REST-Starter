@@ -2,7 +2,7 @@
 
 Kick-starter to your REST application.
 
-`Node`, `Express`, `MongoDB`, `CLI` and more.
+`Node`, `Express`, `SQLite`, `CLI` and more.
 
 ## Introduction
 
@@ -19,9 +19,9 @@ It contains login, logout and details for accounts, using custom token generatio
   ```bash
   npm i --location=project
   ```
-- Add an environemnt file `.env` to the root of the project and set your MONGODB_URI. Typically: -
+- Add an environemnt file `.env` to the root of the project and set your DATABASE_URL. Typically: -
   ```
-  MONGODB_URI = mongodb://127.0.0.1:27017/<appname>
+  DATABASE_URL = sqilte:///<PATH>/db.sqlite3
   ```
 - Create an admin user: -
   ```bash

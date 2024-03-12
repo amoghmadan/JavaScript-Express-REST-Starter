@@ -1,5 +1,5 @@
-import bootstrap from '@/cli/bootstrap';
-import changePassword from '@/cli/changepassword';
-import createSuperUser from '@/cli/createsuperuser';
+import bootstrap from './bootstrap';
+import changePassword from './changepassword';
+import createSuperUser from './createsuperuser';
 
 export {bootstrap, changePassword, createSuperUser};

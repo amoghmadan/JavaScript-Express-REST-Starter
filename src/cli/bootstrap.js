@@ -2,11 +2,10 @@ import {Server} from 'http';
 
 import express from 'express';
 import helmet from 'helmet';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 
+import db from '@/models';
 import routes from '@/routes';
-import {MONGODB_URI} from '@/settings';
 
 /**
  * Get request listener
@@ -36,7 +35,7 @@ export default async function bootstrap(port, host) {
   const requestListener = getRequestListener();
   const server = new Server(options, requestListener);
 
-  await mongoose.connect(MONGODB_URI);
+  await db.sequelize.sync({force: false, logging: false});
   server.listen(port, host, () => {
     console.log(server.address());
   });

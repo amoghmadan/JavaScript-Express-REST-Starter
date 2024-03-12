@@ -1,9 +1,7 @@
-import mongoose from 'mongoose';
 import {read} from 'read';
 
-import {User} from '@/models';
+import db from '@/models';
 import {accountsValidator} from '@/validators';
-import {MONGODB_URI} from '@/settings';
 
 /**
  * Create super user
@@ -16,22 +14,19 @@ export default async function createSuperUser() {
   const passwordAgain = await read({prompt: 'Password (again): '});
 
   try {
-    const validatedData = await accountsValidator.createUser.validateAsync(
-        {
-          email,
-          firstName,
-          lastName,
-          password,
-          passwordAgain,
-        },
-    );
-    await mongoose.connect(MONGODB_URI);
-    const user = await User.findOne({email});
+    const validatedData = await accountsValidator.createUser.validateAsync({
+      email,
+      firstName,
+      lastName,
+      password,
+      passwordAgain,
+    });
+    const user = await db.User.findOne({where: {email}});
     if (user) {
       console.error('Error: That email is already taken.');
       process.exit(2);
     }
-    await User.create({...validatedData, isAdmin: true});
+    await db.User.create({...validatedData, isAdmin: true});
   } catch (err) {
     console.error(err);
     process.exit(2);

@@ -1,16 +1,14 @@
-import mongoose from 'mongoose';
 import {read} from 'read';
 
-import {User} from '@/models';
+import db from '@/models';
 import {accountsValidator} from '@/validators';
-import {MONGODB_URI} from '@/settings';
 
 /**
  * Chnage password
  * @param {string} email
  */
 export default async function changepassword(email) {
-  const password = await read({prompt: 'Email: '});
+  const password = await read({prompt: 'Password: '});
   const passwordAgain = await read({prompt: 'Password (again): '});
 
   try {
@@ -19,8 +17,7 @@ export default async function changepassword(email) {
       password,
       passwordAgain,
     });
-    await mongoose.connect(MONGODB_URI);
-    const user = await User.findOne({email: validatedData.email});
+    const user = await db.User.findOne({where: {email: validatedData.email}});
     if (!user) {
       console.error(`Error: User '${email}' does not exist.`);
       process.exit(2);

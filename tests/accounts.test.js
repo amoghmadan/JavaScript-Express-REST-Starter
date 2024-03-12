@@ -1,9 +1,7 @@
-import mongoose from 'mongoose';
 import supertest from 'supertest';
 
 import {getRequestListener} from '@/cli/bootstrap';
-import {User} from '@/models';
-import {MONGODB_URI} from '@/settings';
+import db from '@/models';
 import {generateKey} from '@/utils/token';
 
 const ROOT_URL = '/api/accounts';
@@ -15,8 +13,7 @@ const request = supertest(getRequestListener());
 
 describe('Account API Tests', () => {
   beforeAll(async () => {
-    await mongoose.connect(MONGODB_URI);
-    await User.create({
+    await db.User.create({
       ...CREDENTIALS,
       firstName: 'Account',
       lastName: 'Test User',
@@ -24,8 +21,8 @@ describe('Account API Tests', () => {
   });
 
   afterAll(async () => {
-    await User.deleteOne({email: EMAIL});
-    await mongoose.connection.close();
+    const user = await db.User.findOne({where: {email: EMAIL}});
+    await user.destroy();
   });
 
   describe(`POST ${ROOT_URL}/login`, () => {
@@ -58,13 +55,18 @@ describe('Account API Tests', () => {
 
   describe(`GET ${ROOT_URL}/detail`, () => {
     it('Retrieves Account Details', async () => {
-      const user = await User.findOne({email: EMAIL});
-      user.token = {key: generateKey()};
-      await user.save();
+      const user = await db.User.findOne({where: {email: EMAIL}});
+      let token = await db.Token.findOne({where: {userId: user.id}});
+      if (!token) {
+        token = await db.Token.create({
+          userId: user.id,
+          key: generateKey(),
+        });
+      }
 
       const response = await request
           .get(`${ROOT_URL}/detail`)
-          .set('Authorization', `${KEYWORD} ${user.token.key}`);
+          .set('Authorization', `${KEYWORD} ${token.key}`);
 
       expect(response.status).toBe(200);
       expect(response.body.email).toBe(user.email);
@@ -101,13 +103,18 @@ describe('Account API Tests', () => {
 
   describe(`DELETE ${ROOT_URL}/logout`, () => {
     it('Performs Account Logout', async () => {
-      const user = await User.findOne({email: EMAIL});
-      user.token = {key: generateKey()};
-      await user.save();
+      const user = await db.User.findOne({where: {email: EMAIL}});
+      let token = await db.Token.findOne({where: {userId: user.id}});
+      if (!token) {
+        token = await db.Token.create({
+          userId: user.id,
+          key: generateKey(),
+        });
+      }
 
       const response = await request
           .delete(`${ROOT_URL}/logout`)
-          .set('Authorization', `${KEYWORD} ${user.token.key}`);
+          .set('Authorization', `${KEYWORD} ${token.key}`);
       expect(response.status).toBe(204);
     });
   });

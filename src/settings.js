@@ -4,4 +4,4 @@ import 'dotenv/config';
 
 export const BASE_DIR = path.dirname(__dirname);
 
-export const MONGODB_URI = process.env.MONGODB_URI;
+export const DATABASE_URL = process.env.DATABASE_URL;

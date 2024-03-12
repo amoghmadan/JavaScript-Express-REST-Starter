@@ -8,14 +8,7 @@ export default {
     return data;
   },
   detail: async (user) => {
-    const detail = {
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      isAdmin: user.isAdmin,
-      dateJoined: user.dateJoined,
-    };
-    return detail;
+    return user.toJSON();
   },
   logout: async (user) => {
     const data = await accountsRepository.logout(user);

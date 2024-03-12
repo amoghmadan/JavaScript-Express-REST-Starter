@@ -1,46 +1,76 @@
 import {compare, genSalt, hash} from 'bcryptjs';
-import {Schema, model} from 'mongoose';
+import {Model} from 'sequelize';
 
-const tokenSchema = new Schema(
-    {
-      key: {type: String, required: true, unique: true},
-    },
-    {timestamps: {createdAt: 'created'}},
-);
+/**
+ * User model generator.
+ * @param {Sequelize} sequelize - Sequelize instance
+ * @param {DataTypes} DataTypes - Sequelize data types
+ * @return {Model} - User model
+ */
+export default (sequelize, DataTypes) => {
+  /**
+   * User model class.
+   */
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     * @param {Models} models - Sequelize models
+     */
+    static associate(models) {
+      this.hasOne(models.Token, {foreignKey: 'userId'});
+    }
 
-const userSchema = new Schema({
-  email: {type: String, required: true, unique: true},
-  firstName: {type: String, required: true},
-  lastName: {type: String, required: true},
-  password: {type: String, required: true},
-  isAdmin: {type: Boolean, required: false, default: false},
-  isActive: {type: Boolean, required: true, default: true},
-  dateJoined: {type: Date, required: true, default: Date.now},
-  lastLogin: {type: Date, required: false},
-  token: {type: tokenSchema, required: false},
-});
+    /**
+     * Checks the password for the user.
+     * @param {string} password - password to check
+     * @return {boolean} - match
+     */
+    async checkPassword(password) {
+      return await compare(password, this.password);
+    }
 
-userSchema.pre('save', async function(next) {
-  // eslint-disable-next-line no-invalid-this
-  if (!this.isModified('password')) return next();
-  try {
-    const salt = await genSalt(12);
-    // eslint-disable-next-line no-invalid-this
-    const hashedPassword = await hash(this.password, salt);
-    // eslint-disable-next-line no-invalid-this
-    this.password = hashedPassword;
-    return next();
-  } catch (e) {
-    return next(e);
+    /**
+     * JSON representation of the user.
+     * @return {Object | Array<Object>} - JSON representation
+     */
+    toJSON() {
+      return {...this.get(), password: undefined};
+    }
   }
-});
-
-userSchema.methods.validatePassword = async function(candidatePassword) {
-  // eslint-disable-next-line no-invalid-this
-  const success = await compare(candidatePassword, this.password);
-  return success;
+  User.init(
+      {
+        id: {
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
+          allowNull: false,
+          primaryKey: true,
+        },
+        email: {type: DataTypes.STRING, unique: true},
+        password: DataTypes.STRING,
+        firstName: DataTypes.STRING,
+        lastName: DataTypes.STRING,
+        isActive: {type: DataTypes.BOOLEAN, defaultValue: true},
+        isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
+        dateJoined: {type: DataTypes.DATE, defaultValue: DataTypes.NOW},
+        lastLogin: DataTypes.DATE,
+      },
+      {
+        sequelize,
+        modelName: 'User',
+        tableName: 'users',
+        hooks: {
+          beforeSave: async (user) => {
+            if (user.changed('password')) {
+              const salt = await genSalt(12);
+              const hashedPassword = await hash(user.password, salt);
+              user.password = hashedPassword;
+            }
+          },
+        },
+        timestamps: false,
+      },
+  );
+  return User;
 };
-
-const User = model('User', userSchema);
-
-export default User;
